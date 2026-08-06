@@ -59,3 +59,12 @@ Content-Type: application/json
 ###
 GET http://localhost:9999/posts
 
+
+###Deleting post
+POST http://localhost:9999/delete_post
+Content-Type: application/json
+
+{
+    "token": "2e32b287fb9e62e7b4349a5a324041c1d49f97b19c76a63a62634206e2ea0e60",
+    "postId": "6a71cbf454864f76167d5318"
+}
