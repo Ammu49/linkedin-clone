@@ -14,12 +14,12 @@ const connectionRequest = new mongoose.Schema (
             required: true,
         },
         status_accepted: {
-            tupe: Boolean,
+            type: Boolean,
             default: null
         }
     }
 );
 
-const ConnectionRequest = mongoose.model("ConnectionRequest", ConnectionRequest);
+const ConnectionRequest = mongoose.model("ConnectionRequest", connectionRequest);
 
 export default ConnectionRequest;
