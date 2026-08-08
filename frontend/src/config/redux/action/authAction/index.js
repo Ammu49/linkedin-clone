@@ -8,13 +8,13 @@ export const loginUser = createAsyncThunk(
     async (user, thunkAPI)=> {
         try{
 
-            const resposne = await clientServer.post("/login", {
+            const response = await clientServer.post("/login", {
                 email: user.email,
                 password: user.password
             });
 
             if(response.data.token){
-            localStorage.setItem("token", resposne.data.token);
+            localStorage.setItem("token", response.data.token);
             
             } else {
                 return thunkAPI.rejectWithValue({
@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
                 })
             }
 
-            return thunkAPI.fulfillWithValue(resposne.data.token);
+            return thunkAPI.fulfillWithValue(response.data.token);
 
 
         }catch(error){
