@@ -28,7 +28,7 @@ GET http://localhost:9999/get_user_and_profile
 Content-Type: application/json
 
 {
-    "token": "d063fa88078a148d069524e88b3f35ca3bfe2f8b6292a0e6a7df03dcb3603cdf"
+    "token": "095d9aeead11e900f410b0f977953295802d05d4fa6fc33b19c5d2778b34359f"
 }
 
 ###update user profile

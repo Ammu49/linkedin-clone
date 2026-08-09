@@ -47,3 +47,27 @@ export const registerUser = createAsyncThunk(
         }
     }
 )
+
+export const getAboutUser = createAsyncThunk(
+    "user/getAboutUser",
+    async (_, thunkAPI) => {
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            console.log("token in getAboutUser", token);
+
+            const response = await clientServer.get('/get_user_and_profile', {
+              params: {
+                token: token
+               }
+                
+            })
+
+            return response.data;
+        }catch(error){
+            return thunkAPI.rejectWithValue(error.response.data)
+    }
+    } 
+)

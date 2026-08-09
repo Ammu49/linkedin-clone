@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from '../../action/authAction/index.js'
+import { loginUser, registerUser, getAboutUser } from '../../action/authAction/index.js'
 
 
 
@@ -64,6 +64,12 @@ const authSlice = createSlice({
             state.isError = true;
             state.isSuccess = false;
             state.message = action.payload;
+        })
+        .addCase(getAboutUser.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isError = false;
+            state.profileFetched = true;
+            state.user = action.payload;
         })
     }
 })
