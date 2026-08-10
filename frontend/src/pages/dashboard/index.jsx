@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/action/postAction';
-import { getAboutUser } from '@/config/redux/action/authAction';
+import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
 import UserLayout from '@/layout/UserLayout';
+import DashboardLayout from "@/layout/DashboardLayout/index";
 
 function Dashboard() {
 
@@ -14,32 +15,24 @@ function Dashboard() {
 
     const authState = useSelector((state) => state.auth)
 
-    const [isTokenThere, setIsTokenThere] = useState(false);
 
     useEffect(() => {
-        if(localStorage.getItem('token') === null){
-            router.push('/login')
-        }
-
-        setIsTokenThere(true)
-    }, [router]);
-
-    useEffect(() => {
-      if(isTokenThere) {
+      if(authState.isTokenThere) {
         dispatch(getAboutUser({ token: localStorage.getItem("token") }));
         dispatch(getAllPosts())
       }
-    }, [isTokenThere, dispatch] )
+      if(!authState.all_profiles_fetched) {
+            dispatch(getAllUsers());
+        }
+    }, [authState.isTokenThere, dispatch] )
 
   return (
     <UserLayout>
-      {authState.profileFetched && <div>
-        <div style={{display: "flex", gap: "1.2rems"}}>
-          <p>Hey, {authState.user.userId.name}</p>
-          <p style={{fontWeight: "bold", cursor: "pointer"}}>Profile</p>
-        </div>
-        
-        </div>}
+      
+      <DashboardLayout>
+          <h2>Dashboard</h2>
+      </DashboardLayout>
+
     </UserLayout>
   )
 }
