@@ -4,7 +4,7 @@ import { loginUser, registerUser, getAboutUser, getAllUsers } from '../../action
 
 
 const initialState = {
-    user: [],
+    user: undefined,
     isError: false,
     isSuccess: false,
     isLoading: false,
