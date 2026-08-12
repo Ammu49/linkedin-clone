@@ -13,11 +13,15 @@ export const activeCheck = async(req, res) =>
 }
 
 export const createPost = async (req, res) => {
+    console.log("REQ BODY:", req.body);
+    console.log("REQ FILE:", req.file);
     const { token } = req.body;
 
     try {
 
         const user = await User.findOne({token: token});
+
+        console.log("USER:", user);
 
         if(!user){
             return res.status(404).json({ message: "User not found"});
@@ -29,6 +33,8 @@ export const createPost = async (req, res) => {
             media: req.file != undefined ? req.file.filename : "",
             fileType: req.file != undefined ? req.file.mimetype.split("/")[1] : "",
         });
+
+        console.log("POST BEFORE SAVE:", post);
 
         await post.save();
 

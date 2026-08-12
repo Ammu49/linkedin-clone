@@ -35,7 +35,57 @@ const PostSchema = mongoose.Schema(
         },
         fileType: {
             type: String,
-            enum: ["image", "video", "pdf", ""],
+            enum: [
+                "",
+                // Images
+                "jpg",
+                "jpeg",
+                "png",
+                "gif",
+                "webp",
+                "svg",
+                "bmp",
+                "tiff",
+                "ico",
+
+                // Videos
+                "mp4",
+                "webm",
+                "mov",
+                "avi",
+                "mkv",
+
+                // Audio
+                "mp3",
+                "wav",
+                "ogg",
+                "aac",
+                "m4a",
+
+                // Documents
+                "pdf",
+                "doc",
+                "docx",
+                "txt",
+                "rtf",
+
+                // Spreadsheets
+                "xls",
+                "xlsx",
+                "csv",
+
+                // Presentations
+                "ppt",
+                "pptx",
+
+                // Archives
+                "zip",
+                "rar",
+                "7z",
+                "tar",
+                "gz",
+            ],
+
             default: "",
         },
     },

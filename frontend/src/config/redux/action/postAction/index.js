@@ -14,3 +14,29 @@ export const getAllPosts = createAsyncThunk(
         }
     }
 )
+
+export const createPost = createAsyncThunk(
+    "post/createPost",
+    async(userData, thunkAPI) => {
+        try {
+            const  formData = new FormData();
+            formData.append('token', localStorage.getItem('token'));
+            formData.append('body', userData.body);
+            formData.append('media', userData.file);
+
+            const response =await clientServer.post('/post', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            if(response.status === 200){
+                return response.fulfillWithValue("Post Uploaded");
+            }else {
+                return response.rejectWithValue("Post not uploaded");
+            }
+        }catch(error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+)

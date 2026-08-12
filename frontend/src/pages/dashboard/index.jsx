@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPosts } from '@/config/redux/action/postAction';
+import { createPost, getAllPosts } from '@/config/redux/action/postAction';
 import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
 import UserLayout from '@/layout/UserLayout';
 import DashboardLayout from "@/layout/DashboardLayout/index";
@@ -33,6 +33,13 @@ function Dashboard() {
     const [postContent, setPostContent] = useState("");
 
     const [fileContent, setFileContent] = useState();
+
+    const handleupload = async () => {
+      await dispatch(createPost({file: fileContent, body: postContent }));
+
+      setPostContent("");
+      setFileContent("");
+    }
 
     if(authState.user){
 
@@ -66,7 +73,7 @@ function Dashboard() {
             <input type="file" hidden id='file-upload' onChange={(e)=> {
               setFileContent(e.target.files[0])
             }}/>
-            {postContent.length > 0 && <div className={styles.uploadButton}>Post</div>}
+            {postContent.length > 0 && <div onClick={handleupload} className={styles.uploadButton}>Post</div>}
             
 
             </div>
