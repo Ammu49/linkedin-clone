@@ -3,7 +3,7 @@ import { getAllPosts } from "../../action/postAction";
 
 
 const initialState = {
-    user: [],
+    posts: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -34,7 +34,7 @@ const postSlice = createSlice(
                 state.isLoading = false;
                 state.isError = false;
                 state.profileFetched = true;
-                state.posts = action.payload.posts
+                state.posts = action.payload.posts.reverse()
             })
             .addCase(getAllPosts.rejected, (state, action) => {
                 state.isLoading = false;
