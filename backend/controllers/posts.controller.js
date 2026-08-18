@@ -59,7 +59,7 @@ export const getAllPosts = async (req, res) => {
 
 export const deletePost = async (req, res) => {
 
-    const { token, postId } = req.body;
+    const { token, post_id } = req.body;
 
     try {
         const user = await User.findOne({ token: token });
@@ -68,7 +68,7 @@ export const deletePost = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }   
 
-        const post = await Post.findOne({ _id: postId });
+        const post = await Post.findOne({ _id: post_id });
 
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
@@ -78,7 +78,7 @@ export const deletePost = async (req, res) => {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
-        await Post.deleteOne({ _id: postId });
+        await Post.deleteOne({ _id: post_id });
         return res.status(200).json({ message: "Post deleted successfully" });
     } catch (err) {
         return res.status(500).json({ message: err.message });

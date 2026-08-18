@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useEffect} from 'react'
 import { setTokenIsThere } from '@/config/redux/reducer/authReducer'
 import { useDispatch , useSelector} from 'react-redux'
+import { BASE_URL } from '@/config/index.jsx'
 
 function DashboardLayout({ children }) {
 
@@ -72,7 +73,8 @@ function DashboardLayout({ children }) {
                     className={styles.extraContainer_profile}
                 >
                     <img
-                        src={profile.userId.profilePicture}
+                        width={100}
+                        src={`${BASE_URL}/uploads/${profile.userId.profilePicture}`}
                         alt={profile.userId.name}
                     />
 

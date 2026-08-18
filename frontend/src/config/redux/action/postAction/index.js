@@ -40,3 +40,22 @@ export const createPost = createAsyncThunk(
         }
     }
 )
+
+
+export const deletepost = createAsyncThunk(
+    "post/deletepost",
+    async (postId, thunkAPI) => {
+        try {
+            const response = await clientServer.delete("/delete_post", {
+                data: {token: localStorage.getItem("token"),
+                post_id: postId}
+            });
+
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data || { message: error.message }
+            );
+        }
+    }
+);
