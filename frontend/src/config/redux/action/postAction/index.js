@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { clientServer } from "../../../index.jsx";
+import { create } from "axios";
 
 
 export const getAllPosts = createAsyncThunk(
@@ -59,3 +60,25 @@ export const deletepost = createAsyncThunk(
         }
     }
 );
+
+export const incrementLike = createAsyncThunk(
+    "post/incrementLike",
+
+    async(post, thunkAPI) => {
+        try{
+
+            console.log("POST DATA:", post);
+            console.log("POST ID:", post.post_id);
+
+            const response = await clientServer.post("/increment_post_like", {
+                post_id: post.post_id
+            })
+
+            return response.data;
+        }catch (error) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data || { message: error.message }
+            );
+        }
+    }
+)
