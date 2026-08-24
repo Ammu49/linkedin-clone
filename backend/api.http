@@ -36,19 +36,19 @@ POST http://localhost:9999/update_profile_data
 Content-Type: application/json
 
 {
-    "token": "8b891e53eed7aee520d985a5de19d588e93c23d527d600a6a85c787e289fe873",
+    "token": "fb9236bdbba25f2086dc7263a860a228e605b833c15ef7afbaedff62c87fd17f",
     "bio": "Software Engineer",
     "currentPost": "CTO",
     "pastWork":[
         {
-            "company": "Microsoft",
+            "company": "Google",
             "position": "CTO",
             "years": "2+"
         }
     ],
     "education": [
         {
-            "school": "IIT",
+            "school": "GIT",
             "degree": "B.Tech",
             "fieldOfStudy": "2007-2011"
         }

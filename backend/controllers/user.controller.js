@@ -236,6 +236,9 @@ export const downloadProfile = async (req, res) => {
 export const sendConnectionRequest = async (req, res) => {
     const { token, connectionId } = req.body;
 
+    console.log("TOKEN", token);
+    console.log("CONNECTION ID:", connectionId);
+
     try {
 
         const user = await User.findOne({ token });
@@ -250,7 +253,7 @@ export const sendConnectionRequest = async (req, res) => {
             return res.status(404).json({message: "Connection user not found"});
         }
 
-        const existingRequest = await connectionRequest.findOne(
+        const existingRequest = await ConnectionRequest.findOne(
             {
                 userId: user._id,
                 connectionId: connectionUser._id
@@ -258,10 +261,10 @@ export const sendConnectionRequest = async (req, res) => {
         )
 
         if (existingRequest){
-            return res.status(400).json({message: "Reques already sent"});
+            return res.status(400).json({message: "Request already sent"});
         }
 
-        const request = new connectionRequest({
+        const request = new ConnectionRequest({
             userId: user._id,
             connectionId: connectionUser._id
         });
@@ -276,7 +279,7 @@ export const sendConnectionRequest = async (req, res) => {
 }
 
 export const getMyConnectionRequests = async (req, res) => {
-    const { token } = req.body;
+    const { token } = req.query;
 
     try{
         const user = await User.findOne({ token });
@@ -341,6 +344,28 @@ export const acceptConnectionRequest = async (req, res) => {
         await connection.save();
 
         return res.json({ message: "Request updated "});
+
+    } catch (err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+
+
+export const getUserProfileAndUserBasedOnUsername = async (req, res) => {
+    const { username } = req.query;
+
+    try {
+        const user = await User.findOne({username});
+
+        if(!user){
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const userProfile = await Profile.findOne({userId: user._id})
+        .populate('userId', 'name username email profilePicture');
+
+        return res.json({'Profile': userProfile});
 
     } catch (err){
         return res.status(500).json({ message: err.message });

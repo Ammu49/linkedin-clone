@@ -17,7 +17,6 @@ app.use(postRoutes);
 app.use(userRoutes);
 app.use("/uploads", express.static("uploads"));
 const start = async () => {
-    // const URI = "mongodb+srv://24u0022_db_user:mrnr8cAOVXltFQi0@linkedin.yhufszj.mongodb.net/?appName=linkedin";
     try {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("DB connected");
