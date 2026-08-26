@@ -300,7 +300,7 @@ export const getMyConnectionRequests = async (req, res) => {
 
 
 export const whatAreMyConnections = async (req, res) => {
-    const { token } = req.body;
+    const { token } = req.query;
 
     try{
         const user = await User.findOne({ token });
@@ -309,7 +309,7 @@ export const whatAreMyConnections = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        const connections = await ConnectionRequest.find({ userId: user._id, status_accepted: true }).populate("userId", 'name username email profilePicture');
+        const connections = await ConnectionRequest.find({ connectionId: user._id }).populate("userId", 'name username email profilePicture');
 
         return res.json(connections);
         
@@ -321,6 +321,7 @@ export const whatAreMyConnections = async (req, res) => {
 
 export const acceptConnectionRequest = async (req, res) => {
     const { token, requestId, action_type } = req.body;
+    console.log("Token: ", token);
 
     try {
         const user = await User.findOne({ token });

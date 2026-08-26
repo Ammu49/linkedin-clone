@@ -8,7 +8,7 @@ import UserLayout from '@/layout/UserLayout';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/action/postAction';
-import { sendConnectionRequest, getConnectionRequest } from '@/config/redux/action/authAction';
+import { sendConnectionRequest, getConnectionRequest, getMyConnectionRequests } from '@/config/redux/action/authAction';
 
 function viewProfile({userProfile}) {
 
@@ -27,6 +27,7 @@ function viewProfile({userProfile}) {
   const getUsersPost = async () => {
     await dispatch(getAllPosts());
     await dispatch(getConnectionRequest({token: localStorage.getItem("token")}));
+    await dispatch(getMyConnectionRequests({token: localStorage.getItem("token")}))
   }
 
 
@@ -41,19 +42,23 @@ function viewProfile({userProfile}) {
   useEffect(()=> {
     
     if(
-      authState.connections &&
       authState.connections.some(user => user.connectionId?._id === userProfile?.userId?._id)){
       setIsCurrentuserInConnection(true);
       if(authState.connections.find(user => user.connectionId._id === userProfile.userId._id).status_accepted === true){
           setIsConnectionNull(false)
-        }else {
-        setIsConnectionNull(true);
+        }
+    }
+
+    if(
+      authState.connectionRequests.some(user => user.userId._id === userProfile.userId._id)){
+        setIsCurrentuserInConnection(true);
+      if(authState.connectionRequests.find(user=> user.userId._id === userProfile.userId._id).status_accepted === true){
+          setIsConnectionNull(false)
+        }
     }
       
-    }else{
-      setIsCurrentuserInConnection(false);
-    }
-  }, [authState.connections, userProfile])
+    
+  }, [authState.connections, authState.connectionRequests])
 
 
     const searchParameters = useSearchParams();
@@ -86,7 +91,7 @@ function viewProfile({userProfile}) {
                   <p style={{ color: 'grey'}}>@{userProfile.userId.username}</p>
                 </div>
 
-                <div style={{display: "flex", alignItems: "center", gap: "1.2rem"}}>{
+                {
                   isCurrentUserInConnection ? <button className={styles.connectionButton} >{isConnectionNull ? "Pending" : "Connected"}</button> : <button onClick={async()=>{
                     await dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), connectionId: userProfile.userId?._id}));
                     await dispatch(getConnectionRequest({
@@ -94,19 +99,6 @@ function viewProfile({userProfile}) {
                   }));
                   }} className={styles.connectBtn}>Connect</button>
                 }
-
-                <div 
-                onClick={async()=> {
-                  const response = await clientServer.get(`/user/download_resume?id=${userProfile.userId._id}`);
-                  window.open(`${BASE_URL}/${response.data.path}`, "_blank")
-                }}
-                style={{cursor: "pointer"}}>
-                  <svg style={{width: "1.2em"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-</svg>
-
-                </div>
-                </div>
 
                 <div>
                   <p>{userProfile.bio}</p>
@@ -130,23 +122,6 @@ function viewProfile({userProfile}) {
                   )
                 })}
               </div>
-            </div>
-          </div>
-          <div className={styles.workHistory}>
-            <h4>Work History</h4>
-
-            <div className={styles.workHistory_container}>
-                {
-                  userProfile.pastWork.map((work, index)=>{
-                    return (
-                      <div className={styles.workHistoryCard}>
-                        <p style={{fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem"}}>{work.company} - {work.position}</p>
-                        <p>{work.years}</p>
-                      </div>
-
-                    )
-                  })
-                }
             </div>
           </div>
         </div>
