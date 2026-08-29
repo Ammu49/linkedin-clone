@@ -1,0 +1,152 @@
+.container{
+    border-radius: 25px;
+    padding: 1rem;
+    background-color: rgb(255, 253, 253);
+    display: flex;
+    gap: 1.2rem;
+    flex-direction: column;
+}
+
+
+
+.profilePictureContainer {
+    width: 10em;
+    height: 10em;
+    position: absolute;
+    bottom: -5em;
+    left: 5%;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.backDrop {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    transition: all 0.4s ease;
+}
+
+.profileEditOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    background-color: rgba(0, 0, 0);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    transition:  0.4s ease;
+
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.profileEditOverlay p {
+    margin: 0;
+}
+
+.profilePictureContainer:hover .profileEditOverlay {
+    opacity: 0.7;
+}
+
+.profilePictureContainer:hover .backDrop {
+    opacity: 0.6;
+}
+.profileContainer_details{
+    padding-top: 6.6rem;
+}
+
+.backDropContainer {
+    width: 70vw;
+    height: 30vh;
+
+    background: url("https://images.pexels.com/photos/31245609/pexels-photo-31245609.jpeg");
+
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    position: relative;
+    border-radius: 20px;
+}
+
+.card{
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.card_profileContainer{
+    display: flex;
+}
+
+.card_profileContainer>img{
+    width: 3.4rem;
+    height: 3.4rem;
+    object-fit: cover;
+}
+
+
+
+.workHistory_container{
+    display: flex;
+    gap: 1.4rem;
+    padding-top: 1.4rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.workHistoryCard{
+    min-width: fit-content;
+    padding-inline: 2.5rem;
+    padding-block: 1rem;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px rgb(173, 173, 173);
+}
+
+.profileContainer_details input {
+    outline: none;
+    border-style: none;
+    padding-inline: 10px;
+    padding-block: 9px;
+    width: fit-content;
+}
+
+.nameEdit {
+    font-weight: bolder;
+    font-size: 1.4rem;
+}
+
+
+.connectionButton{
+    padding-inline: 0.8rem;
+    padding-block: 0.3rem;
+    background: rgba(3, 93, 183, 0.905);
+    outline: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+
+.addBtn{
+    border-style: dotted;
+    padding-inline: 0.5rem;
+    background: white;
+    padding-block:0.5rem;
+    border: 1px dotted grey;
+    border-radius: 10px;
+    cursor: pointer;
+}

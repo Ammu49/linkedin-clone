@@ -105,6 +105,8 @@ export const login = async (req, res) => {
 export const uploadProfilePicture = async (req, res )=> {
     const { token } = req.body;
 
+    console.log("TOKEN", token);
+
     try {
         const user = await User.findOne({ token : token});
 

@@ -58,6 +58,8 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+
 .connectionButton{
     padding-inline: 0.8rem;
     padding-block: 0.3rem;
@@ -83,4 +85,15 @@
     padding-block: 1rem;
     border-radius: 10px;
     box-shadow: 10px 10px 15px rgb(173, 173, 173);
+}
+
+.buttons{
+    display: flex;
+    gap: 1.2rem;
+}
+
+.dowBtn > svg{
+    height: 1.6rem;
+    width: fit-content;
+    cursor: pointer;
 }
