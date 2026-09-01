@@ -75,3 +75,12 @@
     cursor: pointer;
     border: silver;
 }
+
+
+@media only screen and (max-width: 600px) {
+    .cardContainer{
+        flex-direction: column;
+
+    }
+
+}

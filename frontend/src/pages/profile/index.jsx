@@ -18,13 +18,22 @@ function Profilepage() {
   const postReducer = useSelector((state) => state.post);
 
   
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const [userProfile, setUserProfile] = useState({});
 
 
-    const [userPosts, setUserPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
 
+
+  const [inputData, setInputData] = useState({ company: "", position: "", years: ''});
+
+
+  const handleWorkChanges = (e) => {
+
+    const {name, value} = e.target;
+    setInputData({...inputData, [name]: value})
+  }
 
 
   useEffect(()=>{
@@ -113,13 +122,13 @@ const updateProfile = async ()=>{
             </div>
           </div>
           <div className={styles.profileContainer_details}>
-            <div style={{display: 'flex', gap: '0.7rem'}}>
+            <div className={styles.profileContainer_flex}>
               <div style={{flex: '0.8'}}>
-                <div style={{display: 'flex', width: 'fit-content', alignItems: 'center', gap: '1.2rem'}}>
+                <div style={{display: 'flex', width: 'fit-content', alignItems: 'center', flexDirection: 'column'}}>
                   <input className={styles.nameEdit} type='text' value={userProfile?.userId?.name || ""} onChange={(e)=>{
                     setUserProfile({...userProfile, userId: {...userProfile.userId, name: e.target.value}})
                   }} />
-                  <p style={{ color: 'grey'}}>@{userProfile?.userId?.username}</p>
+                  <p style={{color: 'grey', alignSelf: 'flex-start', paddingBottom: '1rem'}}>@{userProfile?.userId?.username}</p>
                 </div>
 
                 
@@ -157,53 +166,68 @@ const updateProfile = async ()=>{
               </div>
             </div>
           </div>
-          <div className="workHistory">
-            <h4>Work History</h4>
+          <div className={styles.workHistory}>
+
+
+                <h4>Work History</h4> <div className={styles.workHistory_container}> { userProfile.pastWork.map((work, index)=>{ return( <div key={index} className={styles.workHistoryCard}> <p style={{fontWeight: "bold", display: "flex"}}>{work.company} {work.position}</p> <p>{work.years} years</p> </div> ) }) }
+              <button
+                className={styles.addBtn}
+                 onClick={()=>{
+                  
+                  setIsModalOpen(true)
+                 }}
+              >Add Work</button>
+            </div>
+          </div>
+
+
+          <div className={styles.workHistory}>
+            <h4>Education</h4>
             <div className={styles.workHistory_container}>
-              {userProfile?.pastWork?.map((work, index) => (
+              {userProfile?.education?.map((edu, index) => (
                 <div key={index} className={styles.workHistoryCard}>
 
                   <input
                     type="text"
-                    placeholder="Company"
-                    value={work.company}
+                    placeholder="School/University"
+                    value={edu.school}
                     onChange={(e) => {
-                      const updatedWork = [...userProfile.pastWork];
-                      updatedWork[index].company = e.target.value;
+                      const updatedEdu = [...userProfile.education];
+                      updatedEdu[index].school = e.target.value;
 
                       setUserProfile({
                         ...userProfile,
-                        pastWork: updatedWork
+                        education: updatedEdu
                       });
                     }}
                   />
 
                   <input
                     type="text"
-                    placeholder="Position"
-                    value={work.position}
+                    placeholder="Degree"
+                    value={edu.degree}
                     onChange={(e) => {
-                      const updatedWork = [...userProfile.pastWork];
-                      updatedWork[index].position = e.target.value;
+                      const updatedEdu = [...userProfile.education];
+                      updatedEdu[index].degree = e.target.value;
 
                       setUserProfile({
                         ...userProfile,
-                        pastWork: updatedWork
+                        pastWork: updatedEdu
                       });
                     }}
                   />
 
                   <input
                     type="text"
-                    placeholder="Years"
-                    value={work.years}
+                    placeholder="Field Of Study"
+                    value={edu.fieldOfStudy}
                     onChange={(e) => {
-                      const updatedWork = [...userProfile.pastWork];
-                      updatedWork[index].years = e.target.value;
+                      const updatedEdu = [...userProfile.education];
+                      updatedEdu[index].fieldOfStudy = e.target.value;
 
                       setUserProfile({
                         ...userProfile,
-                        pastWork: updatedWork
+                        pastWork: updatedEdu
                       });
                     }}
                   />
@@ -216,19 +240,21 @@ const updateProfile = async ()=>{
                 onClick={() => {
                   setUserProfile({
                     ...userProfile,
-                    pastWork: [
-                      ...(userProfile.pastWork || []),
+                    education: [
+                      ...(userProfile.education || []),
                       {
-                        company: "",
-                        position: "",
-                        years: ""
+                        school: "",
+                        degree: "",
+                        fieldOfStudy: ""
                       }
                     ]
                   });
                 }}
-              >Add Work</button>
+              >Add Education</button>
             </div>
           </div>
+
+
 
           {userProfile != authState.user && <div
           onClick={()=>{
@@ -236,6 +262,49 @@ const updateProfile = async ()=>{
           }}
            className={styles.connectionButton}>Update Profile</div>}
         </div>}
+
+
+        { isModalOpen && 
+        <div
+         
+        
+        className={styles.componentsContainer}>
+            <div 
+             onClick={(e)=> {
+              e.stopPropagation()
+             }}
+            className={styles.allCommentsContainer}>
+            <input 
+            onChange={handleWorkChanges} name='company'
+            type="text" placeholder='Company' className={styles.input_field} />
+
+            <input 
+            onChange={handleWorkChanges}
+            name='position'
+            type="text" placeholder='Position' className={styles.input_field} />
+
+            <input 
+            onChange={handleWorkChanges}
+            name='years'
+            type="number" placeholder='Years' className={styles.input_field} />
+
+            <div
+            onClick={()=>{
+              setUserProfile({
+                    ...userProfile,
+                    pastWork: [
+                      ...userProfile.pastWork , inputData ]
+                  });
+                setIsModalOpen(false);
+            }}
+           className={styles.connectionButton}>Add Work</div>
+            </div>
+
+             
+        </div>
+        
+      }
+
         </DashboardLayout>
     </UserLayout>
     

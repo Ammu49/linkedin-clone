@@ -118,7 +118,7 @@ function Dashboard() {
                         <p style={{color: 'grey'}}>@{post.userId.username}</p>
                         <p>{post.body}</p>
                         <div className={styles.silgleCard_image}>
-                          <img src={`${BASE_URL}/uploads/${post.media}`} />
+                          {post.media !== "" ? <img src={`${BASE_URL}/uploads/${post.media}`} /> : <></>}
                         </div>
 
                         <div className={styles.optionsContainer}>

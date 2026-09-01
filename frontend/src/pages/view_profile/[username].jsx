@@ -85,7 +85,7 @@ function viewProfile({userProfile}) {
             <img className={styles.backDrop} src={`${BASE_URL}/uploads/${userProfile.userId.profilePicture}`} alt=''/>
           </div>
           <div className={styles.profileContainer_details}>
-            <div style={{display: 'flex', gap: '0.7rem'}}>
+            <div className={styles.profileContainer_flex}>
               <div style={{flex: '0.8'}}>
                 <div style={{display: 'flex', width: 'fit-content', alignItems: 'center', gap: '1.2rem'}}>
                   <p style={{ color: 'grey'}}>@{userProfile.userId.username}</p>

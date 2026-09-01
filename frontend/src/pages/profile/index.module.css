@@ -107,11 +107,24 @@
     width: 100%;
 }
 
+.workHistoryCard > input{
+    padding-block: 0.8rem;
+    padding-inline: 1rem;
+    text-align: center;
+    border: 0.5px solid black;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
 .workHistoryCard{
+    background-color: rgb(253, 242, 242);
+    display: flex;
     min-width: fit-content;
     padding-inline: 2.5rem;
     padding-block: 1rem;
     border-radius: 10px;
+    gap: 1rem;
     box-shadow: 10px 10px 15px rgb(173, 173, 173);
 }
 
@@ -149,4 +162,63 @@
     border: 1px dotted grey;
     border-radius: 10px;
     cursor: pointer;
+}
+
+
+.allCommentsContainer{
+    width: 40vw;
+    height: fit-content;
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.componentsContainer {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.input_field {
+    z-index: 5;
+    padding-inline: 1.3rem;
+    padding-block: 0.8rem;
+    outline: 10px;
+    border-radius: 10px;
+    border: 1px solid silver;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.profileContainer_flex{
+    display: flex;
+    gap: 1.2rem;
+}
+
+
+
+@media screen and (max-width: 600px){
+    .profileContainer_flex{
+        flex-direction: column;
+    }
+}
+
+.card_profileContainer{
+    display: flex;
+}
+
+.card_profileContainer>img{
+    width: 3.4rem;
+    height: 3.4rem;
+    object-fit: cover;
 }

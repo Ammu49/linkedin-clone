@@ -122,6 +122,7 @@
 }
 
 .singleOption_contsiner > svg {
+    min-width: 1rem;
     cursor: pointer;
     height: 100%;
     width: 15%;
@@ -143,6 +144,7 @@
 
 .allCommentsContainer{
     width: 40vw;
+    min-width: 52svw;
     height: 80vh;
     background: white;
     border-radius: 10px;
@@ -184,4 +186,11 @@
     text-align: center;
     color: white;
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 600px){
+    .allCommentsContainer{
+        width: 90svw;
+    }
 }
